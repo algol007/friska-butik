@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/login', 'App\Http\Controllers\AuthController@index');
+
+Route::get('/', 'App\Http\Controllers\HomeController@index');
+
+Route::get('/404', 'App\Http\Controllers\HomeController@notfound');
+
+Route::get('/user', 'App\Http\Controllers\UserController@index');
+
+Route::get('/barang-masuk', 'App\Http\Controllers\BarangMasukController@index');
+
+Route::get('/barang-keluar', 'App\Http\Controllers\BarangKeluarController@index');
+
+Route::get('/kode-barang', 'App\Http\Controllers\KodeBarangController@index');
+
+Route::get('/stok-barang', 'App\Http\Controllers\StokBarangController@index');
+
+Route::get('/kategori', 'App\Http\Controllers\CategoryController@index');

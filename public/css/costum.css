@@ -1,0 +1,24 @@
+/* Color Palette 
+    primary: #DAAC85;
+    secondary: #66B9BF;
+*/
+
+.bg-primary {
+    background-color: #daac85;
+}
+
+.text-primary {
+    color: #daac85;
+}
+
+.bg-secondary {
+    background-color: #66b9bf;
+}
+
+.text-secondary {
+    color: #66b9bf;
+}
+
+.hello {
+    text-align: center;
+}
