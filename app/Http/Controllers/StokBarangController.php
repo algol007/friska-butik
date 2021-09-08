@@ -14,7 +14,7 @@ class StokBarangController extends Controller
      */
     public function index()
     {
-        //
+        return view('availability');
     }
 
     /**

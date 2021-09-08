@@ -14,7 +14,7 @@ class KodeBarangController extends Controller
      */
     public function index()
     {
-        //
+        return view('code');
     }
 
     /**

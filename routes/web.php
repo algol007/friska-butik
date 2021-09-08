@@ -19,7 +19,7 @@ Route::get('/', 'App\Http\Controllers\HomeController@index');
 
 Route::get('/404', 'App\Http\Controllers\HomeController@notfound');
 
-Route::get('/user', 'App\Http\Controllers\UserController@index');
+Route::get('/user-management', 'App\Http\Controllers\UserController@index');
 
 Route::get('/barang-masuk', 'App\Http\Controllers\BarangMasukController@index');
 
