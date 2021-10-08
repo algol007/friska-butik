@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class KodeBarang extends Model
 {
-    // use HasFactory;
-
-    protected $table = 'users';
+    use HasFactory;
+    protected $table = 'kode_barangs';
 
     protected $fillable = [
-        'username', 'password'
+        'id_kategori', 'kode_barang','nama_barang','harga','foto'
     ];
-
 }
