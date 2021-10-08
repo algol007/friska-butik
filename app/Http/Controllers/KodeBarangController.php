@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KodeBarang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class KodeBarangController extends Controller
 {
@@ -14,7 +15,10 @@ class KodeBarangController extends Controller
      */
     public function index()
     {
-        return view('code');
+        $halaman = 'Kode Barang';
+        $kadebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(2);
+        $jumlah_kodebarang = KodeBarang::count();
+        return view('code', compact('halaman', 'kadebarang_list', 'jumlah_kodebarang'))->with('no', 1);
     }
 
     /**
@@ -35,7 +39,21 @@ class KodeBarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'nama_hobi' => 'required|string',
+        ]);
+
+        if($validator->fails()) {
+            return redirect('hobi/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $hobi = Hobi::create($input);
+
+        return redirect('hobi');
     }
 
     /**

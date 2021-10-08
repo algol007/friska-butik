@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class BarangMasuk extends Model
 {
-    use HasFactory;
+    // use HasFactory;
+    protected $table = 'barang_masuks';
+
+    protected $fillable = [
+        'id_kode_barang', 'tanggal_masuk', 'jumlah'
+    ];
+
 }

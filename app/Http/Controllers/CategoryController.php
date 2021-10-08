@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category');
+        $halaman = 'Kategori';
+        $kategori_list = Category::orderBy('created_at', 'desc')->paginate(2);
+        $jumlah_kategori = Category::count();
+        return view('category', compact('halaman', 'kategori_list', 'jumlah_kategori'))->with('no', 1);;
     }
 
     /**
@@ -35,7 +39,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'nama_kelas' => 'required|string|max:30',
+        ]);
+
+        if($validator->fails()) {
+            return redirect('kelas/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $kelas = Kelas::create($input);
+
+        return redirect('kelas');
     }
 
     /**

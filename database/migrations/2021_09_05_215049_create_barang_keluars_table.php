@@ -14,7 +14,10 @@ class CreateBarangKeluarsTable extends Migration
     public function up()
     {
         Schema::create('barang_keluars', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('id_kode_barang');
+            $table->timestamp('tanggal_keluar');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }

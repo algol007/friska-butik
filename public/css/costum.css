@@ -3,12 +3,22 @@
     secondary: #66B9BF;
 */
 
+.bg-login {
+    background-image: url("../img/walpaper-dekstop-1.png");
+    background-size: cover;
+    background-position: center center;
+}
+
 .bg-primary {
     background-color: #daac85;
 }
 
 .text-primary {
     color: #daac85;
+}
+
+.border-primary {
+    border: 1px solid #daac85;
 }
 
 .bg-secondary {
