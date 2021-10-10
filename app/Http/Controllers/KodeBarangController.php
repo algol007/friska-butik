@@ -16,9 +16,9 @@ class KodeBarangController extends Controller
     public function index()
     {
         $halaman = 'Kode Barang';
-        $kadebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(2);
+        $kodebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(10);
         $jumlah_kodebarang = KodeBarang::count();
-        return view('code', compact('halaman', 'kadebarang_list', 'jumlah_kodebarang'))->with('no', 1);
+        return view('code', compact('halaman', 'kodebarang_list', 'jumlah_kodebarang'))->with('no', 1);
     }
 
     /**

@@ -42,18 +42,18 @@ class CategoryController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'nama_kelas' => 'required|string|max:30',
+            'nama_kategori' => 'required|string|max:30',
         ]);
 
         if($validator->fails()) {
-            return redirect('kelas/create')
+            return redirect('category')
                 ->withInput()
                 ->withErrors($validator);
         }
 
-        $kelas = Kelas::create($input);
+        $kategori = Category::create($input);
 
-        return redirect('kelas');
+        return redirect('categori');
     }
 
     /**

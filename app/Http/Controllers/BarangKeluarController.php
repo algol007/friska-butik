@@ -15,12 +15,10 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        // $halaman = 'hobi';
-        // $hobi_list = Hobi::orderBy('created_at', 'desc')->paginate(2);
-        // $jumlah_hobi = Hobi::count();
-        // return view('hobi.index', compact('halaman', 'hobi_list', 'jumlah_hobi'))->with('no', 1);
-
-        return view('itemout');
+        $halaman = 'Barang Keluat';
+        $barangkeluar_list = BarangKeluar::orderBy('created_at', 'desc')->paginate(10);
+        $jumlah_barangkeluar = BarangKeluar::count();
+        return view('itemout', compact('halaman', 'barangkeluar_list', 'jumlah_barangkeluar'))->with('no', 1);
     }
 
     /**

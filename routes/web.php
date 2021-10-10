@@ -62,12 +62,12 @@ Route::group(['middleware' => ['web']], function () {
   Route::patch('/kategori/{id}', 'App\Http\Controllers\CategoryController@update');
   Route::delete('/kategori/{id}', 'App\Http\Controllers\CategoryController@destroy');
 
-  Route::get('/user', 'App\Http\Controllers\UserController@index');
-  Route::post('/user', 'App\Http\Controllers\UserController@store');
-  Route::get('/user/create', 'App\Http\Controllers\UserController@create');
-  Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
-  Route::get('/user/{id}/edit', 'App\Http\Controllers\UserController@edit');
-  Route::patch('/user/{id}', 'App\Http\Controllers\UserController@update');
-  Route::delete('/user/{id}', 'App\Http\Controllers\UserController@destroy');
+  Route::get('/user-management', 'App\Http\Controllers\UserController@index');
+  Route::post('/user-management', 'App\Http\Controllers\UserController@store');
+  Route::get('/user-management/create', 'App\Http\Controllers\UserController@create');
+  Route::get('/user-management/{id}', 'App\Http\Controllers\UserController@show');
+  Route::get('/user-management/{id}/edit', 'App\Http\Controllers\UserController@edit');
+  Route::patch('/user-management/{id}', 'App\Http\Controllers\UserController@update');
+  Route::delete('/user-management/{id}', 'App\Http\Controllers\UserController@destroy');
 
 });

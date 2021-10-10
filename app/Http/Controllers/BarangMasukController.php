@@ -14,7 +14,10 @@ class BarangMasukController extends Controller
      */
     public function index()
     {
-        return view('itemin');
+        $halaman = 'Barang Masuk';
+        $barangmasuk_list = BarangMasuk::orderBy('created_at', 'desc')->paginate(10);
+        $jumlah_barangmasuk = BarangMasuk::count();
+        return view('itemin', compact('halaman', 'barangmasuk_list', 'jumlah_barangmasuk'))->with('no', 1);
     }
 
     /**
