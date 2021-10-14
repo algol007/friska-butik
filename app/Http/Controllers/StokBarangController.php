@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\KodeBarang;
 use App\Models\StokBarang;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,10 @@ class StokBarangController extends Controller
      */
     public function index()
     {
-        return view('availability');
+        $halaman = 'Kode Barang';
+        $kodebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(10);
+        $jumlah_kodebarang = KodeBarang::count();
+        return view('availability', compact('halaman', 'kodebarang_list', 'jumlah_kodebarang'))->with('no', 1);
     }
 
     /**
