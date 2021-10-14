@@ -26,33 +26,36 @@
             </div>
             <div x-show="show" tabindex="0" class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
                 <div  @click.away="show = false" class="z-50 relative p-3 mx-auto my-0 max-w-full" style="width: 600px;">
-                    <div class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                    <form method="POST" action="/barang-masuk" class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                    @csrf
                         <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
                         <div class="px-6 py-3 text-xl border-b font-bold text-gray-600">Tambah Barang Masuk</div>
                         <div class="p-6 flex-grow">
                             <div class="flex flex-col mb-4">
-                                <label class="font-semibold text-gray-600 text-sm" for="date_in">Tanggal</label>
-                                <input class="rounded text-gray-600 text-sm border p-2" type="date" id="date_in" name="date_in" />
+                                <label class="font-semibold text-gray-600 text-sm" for="tanggal_masuk">Tanggal</label>
+                                <input class="rounded text-gray-600 text-sm border p-2" type="date" id="tanggal_masuk" name="tanggal_masuk" />
                             </div>
                             <div class="flex flex-col mb-4">
-                                <label class="font-semibold text-gray-600 text-sm" for="code">Kode Barang</label>
-                                <select name="code" id="code" class="rounded text-gray-600 text-sm border p-2">
+                                <label class="font-semibold text-gray-600 text-sm" for="id_kode_barang">Kode Barang</label>
+                                <select name="id_kode_barang" id="id_kode_barang" class="rounded text-gray-600 text-sm border p-2">
                                     <option disabled selected>Pilih Kode Barang</option>
-                                    <option value="BJU">BJU</option>
+                                    @foreach ($kodebarang_list as $kodebarang)
+                                    <option value="{{ $kodebarang->id }}">{{ $kodebarang->kode_barang }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="flex flex-col mb-4">
-                                <label class="font-semibold text-gray-600 text-sm" for="total">Jumlah</label>
-                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="total" name="total" />
+                                <label class="font-semibold text-gray-600 text-sm" for="jumlah">Jumlah</label>
+                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="jumlah" name="jumlah" />
                             </div>
                         </div>
                         <div class="px-6 py-3 border-t">
                             <div class="flex justify-end">
                                 <button type="button" class="text-sm text-red-500 px-4 py-2" @click={show=false}>Batal</button>
-                                <button type="button" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="addItemIn()">Simpan</button>
+                                <button type="submit" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="addItemIn()">Simpan</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black opacity-50"></div>
             </div>
@@ -96,7 +99,7 @@
                                 {{ $no++ ?? '' }}</td>
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                {{ $barangmasuk->tanggal_masuk }}</td>
+                                {{ substr($barangmasuk->tanggal_masuk, 0, 10) }}</td>
 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
@@ -154,11 +157,15 @@
                                         </div>
                                     </div>    
                                 </div>
-                                <div class="h-6 w-6 bg-red-500 p-0.5 rounded text-white" onclick="deleteItemIn()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </div>
+                                <form action="/barang-masuk/{{ $barangmasuk->id }}" method="POST" onclick="return confirm('Yakin ingin menghapus Barang Masuk ?')">
+                                    @method('delete')
+                                    @csrf              
+                                    <button type="submit" class="h-6 w-6 bg-red-500 p-0.5 rounded text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

@@ -15,7 +15,7 @@ class CreateBarangKeluarsTable extends Migration
     {
         Schema::create('barang_keluars', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_kode_barang');
+            $table->integer('id_kode_barang');
             $table->timestamp('tanggal_keluar');
             $table->integer('jumlah');
             $table->timestamps();

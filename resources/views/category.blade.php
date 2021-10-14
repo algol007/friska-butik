@@ -28,6 +28,7 @@
                 <div x-show="show" tabindex="0" class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
                     <div  @click.away="show = false" class="z-50 relative p-3 mx-auto my-0 max-w-full" style="width: 600px;">
                         <form method="POST" action="/kategori" class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                            @csrf
                             <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
                             <div class="px-6 py-3 text-xl border-b font-bold text-gray-600">Tambah Kategori</div>
                             <div class="p-6 flex-grow">
@@ -110,12 +111,15 @@
                                             </div>
                                         </div>    
                                     </div>
-
-                                    <div class="h-6 w-6 bg-red-500 p-0.5 rounded text-white" onclick="deleteCategory()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </div>
+                                    <form action="/kategori/{{ $kategori->id }}" method="POST" onclick="return confirm('Yakin ingin menghapus kategori ?')">
+                                        @method('delete')
+                                        @csrf              
+                                        <button type="submit" class="h-6 w-6 bg-red-500 p-0.5 rounded text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -124,7 +128,6 @@
                 </div>
             </div>
         </div>
-        <!-- This example requires Tailwind CSS v2.0+ -->
         <div class="mt-4">
             {{ $kategori_list->links() }}
         </div>
@@ -149,7 +152,8 @@
         })
     }
 
-    function deleteCategory() {
+    function deleteCategory(e) {
+        e.preventDefault();
         Swal.fire({
             title: 'Hapus Kategori?',
             icon: 'warning',

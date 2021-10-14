@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\KodeBarang;
 use App\Models\BarangKeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -15,10 +15,11 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        $halaman = 'Barang Keluat';
+        $halaman = 'Barang Keluar';
         $barangkeluar_list = BarangKeluar::orderBy('created_at', 'desc')->paginate(10);
         $jumlah_barangkeluar = BarangKeluar::count();
-        return view('itemout', compact('halaman', 'barangkeluar_list', 'jumlah_barangkeluar'))->with('no', 1);
+        $kodebarang_list = KodeBarang::all();
+        return view('itemout', compact('halaman', 'barangkeluar_list', 'jumlah_barangkeluar', 'kodebarang_list'))->with('no', 1);
     }
 
     /**
@@ -39,21 +40,21 @@ class BarangKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        // $input = $request->all();
-        
-        // $validator = Validator::make($input, [
-        //     'nama_hobi' => 'required|string',
-        // ]);
+        $input=$request->only(['id_kode_barang', 'tanggal_keluar','jumlah']);
+        $validator = Validator::make($input, [
+            'id_kode_barang' => 'required', 
+            'tanggal_keluar' => 'required', 
+            'jumlah' => 'required', 
+        ]);
 
-        // if($validator->fails()) {
-        //     return redirect('hobi/create')
-        //             ->withInput()
-        //             ->withErrors($validator);
-        // }
+        if($validator->fails()) {
+            return redirect('barang-masuk')
+                ->withInput()
+                ->withErrors($validator);
+        }
 
-        // $hobi = Hobi::create($input);
-
-        // return redirect('hobi');
+        $barangkeluar = BarangKeluar::create($input);
+        return redirect("barang-keluar")->with('success', 'Successfully Add Data');
     }
 
     /**
@@ -114,10 +115,10 @@ class BarangKeluarController extends Controller
      * @param  \App\Models\BarangKeluar  $barangKeluar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BarangKeluar $barangKeluar)
+    public function destroy($id)
     {
-        // $hobi = Hobi::findOrFail($id);
-        // $hobi->delete();
-        // return redirect('hobi');      
+        $barangkeluar = BarangKeluar::findOrFail($id);
+        $barangkeluar->delete();
+        return redirect('barang-keluar');      
     }
 }
