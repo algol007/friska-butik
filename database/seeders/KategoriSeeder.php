@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class KategoriSeeder extends Seeder
@@ -13,8 +13,8 @@ class KategoriSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
-            'kategori' => Str::random(10),
-        ]);    
+        $kategori = new Category;
+        $kategori->nama_kategori = "Outer";
+        $kategori->save();
     }
 }

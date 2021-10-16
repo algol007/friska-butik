@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\KodeBarang;
 
 use Illuminate\Database\Seeder;
 
@@ -13,11 +14,11 @@ class KodeBarangSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('kode_barangs')->insert([
-            'kode_barang' => Str::random(4),
-            'nama_barang' => Str::random(10),
-            'harga' => 100000,
-            'foto' => '',
-        ]);    
+        $kode_barang = new KodeBarang;
+        $kode_barang->id_kategori = 3;
+        $kode_barang->kode_barang = "GMS-01";
+        $kode_barang->nama_barang = "Gamis Syar'i Hitam";
+        $kode_barang->harga = 150000;
+        $kode_barang->save();
     }
 }

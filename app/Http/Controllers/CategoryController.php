@@ -39,21 +39,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-
+        $input=$request->only(['nama_kategori']);
         $validator = Validator::make($input, [
-            'nama_kelas' => 'required|string|max:30',
+            'nama_kategori' => 'required|string|max:30',
         ]);
 
         if($validator->fails()) {
-            return redirect('kelas/create')
+            return redirect('category')
                 ->withInput()
                 ->withErrors($validator);
         }
 
-        $kelas = Kelas::create($input);
-
-        return redirect('kelas');
+        $kategori = Category::create($input);
+        return redirect("kategori")->with('success', 'Successfully Add Data');
     }
 
     /**
@@ -87,7 +85,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $kategori = Category::findOrFail($id);
+        $input = $request->all();
+        
+        $validator = Validator::make($input, [
+            'nama_kategori' => 'required|string|max:30',
+        ]);
+
+        if($validator->fails()) {
+            return redirect('kategori')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $kategori->update($request->all());
+
+        return redirect('kategori');
     }
 
     /**
@@ -96,8 +109,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $kategori = Category::findOrFail($id);
+        $kategori->delete();
+        return redirect('kategori');      
     }
 }

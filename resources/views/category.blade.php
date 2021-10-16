@@ -27,22 +27,24 @@
                 </div>
                 <div x-show="show" tabindex="0" class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
                     <div  @click.away="show = false" class="z-50 relative p-3 mx-auto my-0 max-w-full" style="width: 600px;">
-                        <div class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                        <form method="POST" action="/kategori" class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                            @csrf
                             <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
                             <div class="px-6 py-3 text-xl border-b font-bold text-gray-600">Tambah Kategori</div>
                             <div class="p-6 flex-grow">
                                 <div class="flex flex-col mb-4">
-                                    <label class="font-semibold text-gray-600 text-sm" for="name">Nama Kategori</label>
-                                    <input class="rounded text-gray-600 text-sm border p-2" type="text" id="name" name="name" />
+                                    <label class="font-semibold text-gray-600 text-sm" for="nama_kategori">Nama Kategori</label>
+                                    <input class="rounded text-gray-600 text-sm border p-2" type="text" id="nama_kategori" name="nama_kategori" />
                                 </div>
                             </div>
                             <div class="px-6 py-3 border-t">
                                 <div class="flex justify-end">
                                     <button type="button" class="text-sm text-red-500 px-4 py-2" @click={show=false}>Batal</button>
-                                    <button type="button" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="addCategory()">Simpan</button>
+                                    <button type="submit" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="addCategory()
+                                    ">Simpan</button>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black opacity-50"></div>
                 </div>
@@ -67,13 +69,14 @@
                         </thead>
 
                         <tbody class="bg-white">
+                            @foreach ($kategori_list as $kategori)
                             <tr>
                                 <td
                                     class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                    1</td>
+                                    {{ $no++ ?? '' }}</td>
                                 <td
                                     class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                    Outer</td>
+                                    {{ $kategori->nama_kategori }}</td>
                                 <td
                                     class="flex px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium justify-end">
                                     <div>
@@ -108,112 +111,25 @@
                                             </div>
                                         </div>    
                                     </div>
-
-                                    <div class="h-6 w-6 bg-red-500 p-0.5 rounded text-white" onclick="deleteCategory()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </div>
+                                    <form action="/kategori/{{ $kategori->id }}" method="POST" onclick="return confirm('Yakin ingin menghapus kategori ?')">
+                                        @method('delete')
+                                        @csrf              
+                                        <button type="submit" class="h-6 w-6 bg-red-500 p-0.5 rounded text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <td
-                                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                    2</td>
-                                <td
-                                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                    Gamis</td>
-                                <td
-                                    class="flex px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium justify-end">
-                                    <div>
-                                        <div x-data="{ show: false }">
-                                            <div class="flex justify-center">
-                                                <div @click={show=true} class="h-6 w-6 mr-2 bg-blue-500 p-0.5 rounded text-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </div>
-                                            </div>
-                                            <div x-show="show" tabindex="0" class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
-                                                <div  @click.away="show = false" class="z-50 relative p-3 mx-auto my-0 max-w-full" style="width: 600px;">
-                                                    <div class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
-                                                        <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
-                                                        <div class="px-6 py-3 text-xl border-b font-bold text-gray-600 text-left">Edit Kategori</div>
-                                                        <div class="p-6 flex-grow">
-                                                            <div class="flex flex-col mb-4">
-                                                                <label class="font-semibold text-gray-600 text-sm text-left" for="name">Nama Kategori</label>
-                                                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="name" name="name" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="px-6 py-3 border-t">
-                                                            <div class="flex justify-end">
-                                                                <button type="button" class="text-sm text-red-500 px-4 py-2" @click={show=false}>Batal</button>
-                                                                <button type="button" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="editCategory()">Simpan</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black opacity-50"></div>
-                                            </div>
-                                        </div>    
-                                    </div>
-
-                                    <div class="h-6 w-6 bg-red-500 p-0.5 rounded text-white" onclick="deleteCategory()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <!-- This example requires Tailwind CSS v2.0+ -->
-        <div class="py-3 flex items-center justify-between border-t border-gray-200">
-            <div class="flex-1 flex justify-between sm:hidden">
-                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                Previous
-                </a>
-                <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                Next
-                </a>
-            </div>
-            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                <div>
-                <p class="text-sm text-gray-700">
-                    Showing
-                    <span class="font-medium">2</span>
-                    to
-                    <span class="font-medium">2</span>
-                    of
-                    <span class="font-medium">2</span>
-                    results
-                </p>
-                </div>
-                <div>
-                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                    <span class="sr-only">Previous</span>
-                    <!-- Heroicon name: solid/chevron-left -->
-                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    </a>
-                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                    1
-                    </a>
-                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                    <span class="sr-only">Next</span>
-                    <!-- Heroicon name: solid/chevron-right -->
-                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    </a>
-                </nav>
-                </div>
-            </div>
+        <div class="mt-4">
+            {{ $kategori_list->links() }}
         </div>
     </div>
 
@@ -236,7 +152,8 @@
         })
     }
 
-    function deleteCategory() {
+    function deleteCategory(e) {
+        e.preventDefault();
         Swal.fire({
             title: 'Hapus Kategori?',
             icon: 'warning',

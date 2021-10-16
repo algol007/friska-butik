@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\KodeBarang;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,9 +17,10 @@ class KodeBarangController extends Controller
     public function index()
     {
         $halaman = 'Kode Barang';
-        $kadebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(2);
+        $kodebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(10);
         $jumlah_kodebarang = KodeBarang::count();
-        return view('code', compact('halaman', 'kadebarang_list', 'jumlah_kodebarang'))->with('no', 1);
+        $kategori_list = Category::all();
+        return view('code', compact('halaman', 'kodebarang_list', 'jumlah_kodebarang', 'kategori_list'))->with('no', 1);
     }
 
     /**
@@ -39,21 +41,22 @@ class KodeBarangController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-
+        $input=$request->only(['id_kategori', 'kode_barang','nama_barang','harga','foto']);
         $validator = Validator::make($input, [
-            'nama_hobi' => 'required|string',
+            'id_kategori' => 'required', 
+            'kode_barang' => 'required', 
+            'nama_barang' => 'required', 
+            'harga' => 'required',
         ]);
 
         if($validator->fails()) {
-            return redirect('hobi/create')
+            return redirect('kode-barang')
                 ->withInput()
                 ->withErrors($validator);
         }
 
-        $hobi = Hobi::create($input);
-
-        return redirect('hobi');
+        $kodebarang = KodeBarang::create($input);
+        return redirect("kode-barang")->with('success', 'Successfully Add Data');
     }
 
     /**
@@ -96,8 +99,10 @@ class KodeBarangController extends Controller
      * @param  \App\Models\KodeBarang  $kodeBarang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KodeBarang $kodeBarang)
+    public function destroy($id)
     {
-        //
+        $kodebarang = KodeBarang::findOrFail($id);
+        $kodebarang->delete();
+        return redirect('kode-barang');      
     }
 }
