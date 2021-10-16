@@ -113,7 +113,7 @@
                                     {{ $kodebarang->nama_barang }}</td>
                                 <td
                                     class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                    {{ $kodebarang->id_kategori }}</td>
+                                    {{ $kodebarang->kategori->nama_kategori }}</td>
                                 <td
                                     class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                                     Rp {{ $kodebarang->harga }}</td>

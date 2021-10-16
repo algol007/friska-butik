@@ -77,10 +77,10 @@
                                 Tanggal</th>
                             <th
                                 class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Nama Barang</th>
+                                Kode Barang</th>
                             <th
                                 class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Kategori</th>
+                                Nama Barang</th>
                             <th
                                 class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Harga</th>
@@ -103,13 +103,13 @@
 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                {{ $barangmasuk->id_kode_barang }}</td>
+                                {{ $barangmasuk->kodebarang->kode_barang }}</td>
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                {{ $barangmasuk->id_kode_barang }}</td>
+                                {{ $barangmasuk->kodebarang->nama_barang }}</td>
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                Rp {{ $barangmasuk->id_kode_barang }}</td>
+                                Rp {{ $barangmasuk->kodebarang->harga }}</td>
 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">

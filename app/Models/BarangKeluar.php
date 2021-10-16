@@ -14,4 +14,8 @@ class BarangKeluar extends Model
         'id_kode_barang', 'tanggal_keluar', 'jumlah'
     ];
 
+    public function kodebarang()
+    {
+        return $this->belongsTo('App\Models\KodeBarang', 'id_kode_barang');
+    }
 }

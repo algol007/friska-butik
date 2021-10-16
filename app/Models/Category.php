@@ -15,7 +15,7 @@ class Category extends Model
         'nama_kategori'
     ];
 
-    public function kategori()
+    public function kodebarang()
     {
         return $this->hasMany('App\KodeBarang', 'id_kategori');
     }
