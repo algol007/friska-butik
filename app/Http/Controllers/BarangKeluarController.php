@@ -89,24 +89,26 @@ class BarangKeluarController extends Controller
      * @param  \App\Models\BarangKeluar  $barangKeluar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BarangKeluar $barangKeluar)
+    public function update(Request $request, $id)
     {
-        // $hobi = Hobi::findOrFail($id);
-        // $input = $request->all();
+        $barangkeluar = BarangKeluar::findOrFail($id);
+        $input = $request->all();
         
-        // $validator = Validator::make($input, [
-        //     'nama_hobi' => 'required|string|max:30',
-        // ]);
-    
-        // if($validator->fails()) {
-        //     return redirect('hobi/'. $id . '/edit')
-        //         ->withInput()
-        //         ->withErrors($validator);
-        // }
+        $validator = Validator::make($input, [
+            'id_kode_barang' => 'required', 
+            'tanggal_keluar' => 'required', 
+            'jumlah' => 'required', 
+        ]);
 
-        // $hobi->update($request->all());
+        if($validator->fails()) {
+            return redirect('kategori')
+                ->withInput()
+                ->withErrors($validator);
+        }
 
-        // return redirect('hobi');
+        $barangkeluar->update($request->all());
+
+        return redirect('barang-keluar')->with('success', 'Successfully Update Data');
     }
 
     /**

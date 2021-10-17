@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\BarangKeluar;
+use App\Models\BarangMasuk;
 use App\Models\Home;
 use Illuminate\Http\Request;
 
@@ -23,8 +24,11 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');        
+    {        
+        $halaman = 'Dashboard';
+        $jumlah_barangkeluar = BarangKeluar::count();
+        $jumlah_barangmasuk = BarangMasuk::count();
+        return view('home', compact('halaman', 'jumlah_barangkeluar', 'jumlah_barangmasuk'));
     }
 
     /**

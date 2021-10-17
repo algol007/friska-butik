@@ -13,7 +13,7 @@
                     </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">50</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $jumlah_barangmasuk }}</h4>
                         <div class="text-gray-500">Barang Masuk</div>
                     </div>
                 </a>
@@ -27,7 +27,7 @@
                     </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">20</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $jumlah_barangkeluar }}</h4>
                         <div class="text-gray-500">Barang Keluar</div>
                     </div>
                 </a>
@@ -41,7 +41,7 @@
                     </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">30</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $jumlah_barangmasuk - $jumlah_barangkeluar}}</h4>
                         <div class="text-gray-500">Jumlah Stok</div>
                     </div>
                 </a>

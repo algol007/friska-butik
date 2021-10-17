@@ -83,7 +83,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         $kategori = Category::findOrFail($id);
         $input = $request->all();
@@ -100,7 +100,7 @@ class CategoryController extends Controller
 
         $kategori->update($request->all());
 
-        return redirect('kategori');
+        return redirect('kategori')->with('success', 'Successfully Update Data');;
     }
 
     /**

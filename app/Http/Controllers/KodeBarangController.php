@@ -41,7 +41,7 @@ class KodeBarangController extends Controller
      */
     public function store(Request $request)
     {
-        $input=$request->only(['id_kategori', 'kode_barang','nama_barang','harga','foto']);
+        $input = $request->all();
         $validator = Validator::make($input, [
             'id_kategori' => 'required', 
             'kode_barang' => 'required', 
@@ -88,9 +88,27 @@ class KodeBarangController extends Controller
      * @param  \App\Models\KodeBarang  $kodeBarang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KodeBarang $kodeBarang)
+    public function update(Request $request, $id)
     {
-        //
+        $kodebarang = KodeBarang::findOrFail($id);
+        $input = $request->all();
+        
+        $validator = Validator::make($input, [
+            'id_kategori' => 'required', 
+            'kode_barang' => 'required', 
+            'nama_barang' => 'required', 
+            'harga' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return redirect('kategori')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $kodebarang->update($request->all());
+
+        return redirect('kode-barang')->with('success', 'Successfully Update Data');;
     }
 
     /**
