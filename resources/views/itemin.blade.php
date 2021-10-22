@@ -3,8 +3,8 @@
 @section('content')
     <h3 class="text-gray-700 text-3xl font-medium">Barang Masuk</h3>
 
-    <div class="mt-8 flex flex-wrap justify-between items-center">
-        <div class="flex items-center mb-4 md:mb-0">
+    <div class="mt-8 flex flex-wrap justify-end items-center">
+        <!-- <div class="flex items-center mb-4 md:mb-0">
             <div>Show</div>
             <select name="show" id="show" value="10" class="mx-2 border py-2 px-4 rounded">
                 <option value="10">10</option>
@@ -12,7 +12,7 @@
                 <option value="30">30</option>
             </select>
             <div>Entries</div>
-        </div>
+        </div> -->
         <div x-data="{ show: false }">
             <div class="flex justify-center">
                 <button @click={show=true} type="button" class="bg-secondary py-2 px-4 rounded text-white flex items-center">

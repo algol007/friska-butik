@@ -54,7 +54,7 @@ Route::group(['middleware' => ['web']], function () {
   Route::patch('/stok-barang/{id}', 'App\Http\Controllers\StokBarangController@update');
   Route::delete('/stok-barang/{id}', 'App\Http\Controllers\StokBarangController@destroy');
 
-  Route::get('/kategori', 'App\Http\Controllers\CategoryController@index')->middleware('auth');;
+  Route::get('/kategori', 'App\Http\Controllers\CategoryController@index');
   Route::post('/kategori', 'App\Http\Controllers\CategoryController@store');
   Route::get('/kategori/create', 'App\Http\Controllers\CategoryController@create');
   Route::get('/kategori/{id}', 'App\Http\Controllers\CategoryController@show');

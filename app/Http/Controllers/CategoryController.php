@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $halaman = 'Kategori';
-        $kategori_list = Category::orderBy('created_at', 'desc')->paginate(2);
+        $kategori_list = Category::orderBy('created_at', 'desc')->paginate(10);
         $jumlah_kategori = Category::count();
         return view('category', compact('halaman', 'kategori_list', 'jumlah_kategori'))->with('no', 1);;
     }

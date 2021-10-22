@@ -3,8 +3,8 @@
 @section('content')
     <h3 class="text-gray-700 text-3xl font-medium">Stok Barang</h3>
     
-    <div class="mt-8 flex justify-between items-center">
-        <div class="flex items-center">
+    <div class="mt-8 flex justify-end items-center">
+        <!-- <div class="flex items-center">
             <div>Show</div>
             <select name="show" id="show" value="10" class="mx-2 border py-2 px-4 rounded">
                 <option value="10">10</option>
@@ -12,7 +12,15 @@
                 <option value="30">30</option>
             </select>
             <div>Entries</div>
-        </div>
+        </div> -->
+        <button type="button" class="bg-secondary py-2 px-4 rounded text-white flex items-center">
+            <div class="w-5 h-5 font-bold mr-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>            
+            </div>
+            Export PDF
+        </button>
     </div>
 
     <div class="flex flex-col mt-8">

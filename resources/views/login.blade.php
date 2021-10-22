@@ -38,15 +38,15 @@
       </div>
 
       <script>
-        const isLogin = localStorage.getItem("login");
-        if(isLogin) {
-            window.location.replace("/");
-        }
+        // function login() {
+        //   localStorage.setItem("login", true);
+        //   window.location.replace("/");
+        // }
 
-        function login() {
-          localStorage.setItem("login", true);
-          console.log("hello")
-        }
+        // const isLogin = localStorage.getItem("login");
+        // if(isLogin) {
+        //     window.location.replace("/");
+        // }
       </script>
     </body>
 </html>
