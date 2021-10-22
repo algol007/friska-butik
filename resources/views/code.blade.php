@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="flex flex-col mb-4">
                                     <label class="font-semibold text-gray-600 text-sm" for="harga">Harga</label>
-                                    <input class="rounded text-gray-600 text-sm border p-2" type="text" id="harga" name="harga" />
+                                    <input class="rounded text-gray-600 text-sm border p-2" type="number" id="harga" name="harga" />
                                 </div>
                                 <div class="flex flex-col mb-4">
                                     <label class="font-semibold text-gray-600 text-sm" for="foto">Gambar</label>
@@ -116,7 +116,7 @@
                                     {{ $kodebarang->kategori->nama_kategori }}</td>
                                 <td
                                     class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                    Rp {{ $kodebarang->harga }}</td>
+                                    Rp {{ $kodebarang->harga }} /pcs</td>
                                 <td
                                     class="flex justify-end px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                                     <div>
@@ -156,7 +156,7 @@
                                                         </div>
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="harga">Harga</label>
-                                                            <input class="rounded text-gray-600 text-sm border p-2" type="text" id="harga" name="harga" />
+                                                            <input class="rounded text-gray-600 text-sm border p-2" type="number" id="harga" name="harga" />
                                                         </div>
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="foto">Gambar</label>

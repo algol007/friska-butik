@@ -13,22 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', 'App\Http\Controllers\AuthController@index');
-Route::get('/', 'App\Http\Controllers\HomeController@index');
+Route::get('/login', 'App\Http\Controllers\LoginController@login');
 Route::get('/404', 'App\Http\Controllers\HomeController@notfound');
 
-// Route::get('/', 'PagesController@home');
-// Route::get('/about', 'PagesController@about');
+Route::post('/actionlogin', 'App\Http\Controllers\LoginController@actionlogin');
+Route::get('/actionlogout', 'App\Http\Controllers\LoginController@actionlogout')->middleware('auth');
 
 Route::group(['middleware' => ['web']], function () {
+  Route::get('/', 'App\Http\Controllers\HomeController@index');
 
-  Route::get('barang-masuk', 'App\Http\Controllers\BarangMasukController@index');
-  Route::post('barang-masuk', 'App\Http\Controllers\BarangMasukController@store');
-  Route::get('barang-masuk/create', 'App\Http\Controllers\BarangMasukController@create');
-  Route::get('barang-masuk/{id}', 'App\Http\Controllers\BarangMasukController@show');
-  Route::get('barang-masuk/{id}/edit', 'App\Http\Controllers\BarangMasukController@edit');
-  Route::patch('barang-masuk/{id}', 'App\Http\Controllers\BarangMasukController@update');
-  Route::delete('barang-masuk/{id}', 'App\Http\Controllers\BarangMasukController@destroy');
+  Route::get('/barang-masuk', 'App\Http\Controllers\BarangMasukController@index');
+  Route::post('/barang-masuk', 'App\Http\Controllers\BarangMasukController@store');
+  Route::get('/barang-masuk/create', 'App\Http\Controllers\BarangMasukController@create');
+  Route::get('/barang-masuk/{id}', 'App\Http\Controllers\BarangMasukController@show');
+  Route::get('/barang-masuk/{id}/edit', 'App\Http\Controllers\BarangMasukController@edit');
+  Route::patch('/barang-masuk/{id}', 'App\Http\Controllers\BarangMasukController@update');
+  Route::delete('/barang-masuk/{id}', 'App\Http\Controllers\BarangMasukController@destroy');
 
   Route::get('/barang-keluar', 'App\Http\Controllers\BarangKeluarController@index');
   Route::post('/barang-keluar', 'App\Http\Controllers\BarangKeluarController@store');
@@ -54,7 +54,7 @@ Route::group(['middleware' => ['web']], function () {
   Route::patch('/stok-barang/{id}', 'App\Http\Controllers\StokBarangController@update');
   Route::delete('/stok-barang/{id}', 'App\Http\Controllers\StokBarangController@destroy');
 
-  Route::get('/kategori', 'App\Http\Controllers\CategoryController@index');
+  Route::get('/kategori', 'App\Http\Controllers\CategoryController@index')->middleware('auth');;
   Route::post('/kategori', 'App\Http\Controllers\CategoryController@store');
   Route::get('/kategori/create', 'App\Http\Controllers\CategoryController@create');
   Route::get('/kategori/{id}', 'App\Http\Controllers\CategoryController@show');

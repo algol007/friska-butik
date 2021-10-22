@@ -46,7 +46,7 @@
                             </div>
                             <div class="flex flex-col mb-4">
                                 <label class="font-semibold text-gray-600 text-sm" for="jumlah">Jumlah</label>
-                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="jumlah" name="jumlah" />
+                                <input class="rounded text-gray-600 text-sm border p-2" type="number" id="jumlah" name="jumlah" />
                             </div>
                         </div>
                         <div class="px-6 py-3 border-t">
@@ -112,7 +112,7 @@
 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                Rp {{ $barangkeluar->kodebarang->harga }}</td>
+                                Rp {{ $barangkeluar->kodebarang->harga }} /pcs</td>
 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
@@ -153,7 +153,7 @@
                                                             </div>
                                                             <div class="flex flex-col mb-4">
                                                                 <label class="text-left font-semibold text-gray-600 text-sm" for="jumlah">Jumlah</label>
-                                                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="jumlah" name="jumlah" />
+                                                                <input class="rounded text-gray-600 text-sm border p-2" type="number" id="jumlah" name="jumlah" />
                                                             </div>
                                                         </div>
                                                         <div class="px-6 py-3 border-t">

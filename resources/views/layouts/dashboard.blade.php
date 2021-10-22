@@ -67,13 +67,13 @@
                     <span class="mx-3">Stok Barang</span>
                 </a>
     
-                <a class="flex items-center py-3 px-6 hover:bg-gray-700 hover:bg-opacity-25"
+                <!-- <a class="flex items-center py-3 px-6 hover:bg-gray-700 hover:bg-opacity-25"
                     href="/user-management">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                     <span class="mx-3">User Management</span>
-                </a>
+                </a> -->
     
                 <a class="flex items-center py-3 px-6 hover:bg-gray-700 hover:bg-opacity-25"
                     href="/barang-masuk">
@@ -133,8 +133,8 @@
                         <div x-show="dropdownOpen"
                             class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10"
                             style="display: none;">
-                            <a href="/login"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                            <div onclick="logout()"
+                                class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</div>
                         </div>
                     </div>
                 </div>
@@ -147,6 +147,17 @@
         </div>
     </div>
 </div>
+    <script>
+        const login = localStorage.getItem("login");
+        if(!login) {
+            window.location.replace("/login");
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.replace("/login");
+        }
+    </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </body>
