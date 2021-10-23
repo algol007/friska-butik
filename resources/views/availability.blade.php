@@ -61,14 +61,14 @@
             </select>
             <div>Entries</div>
         </div> -->
-        <button type="button" class="bg-secondary py-2 px-4 rounded text-white flex items-center">
+        <a href="/stok-barang/cetak_pdf" target="_blank" class="bg-secondary py-2 px-4 rounded text-white flex items-center">
             <div class="w-5 h-5 font-bold mr-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>            
             </div>
             Export PDF
-        </button>
+        </a>
     </div>
 
     <div class="flex flex-col mt-8">
@@ -101,11 +101,13 @@
                     </thead>
 
                     <tbody class="bg-white">
+                        @php $i=1 @endphp
                         @foreach ($kodebarang_list as $kodebarang)
                         <tr>
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                {{ $no++ ?? '' }}</td>
+                                {{ $i++ }}
+                            </td>
 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
@@ -117,7 +119,7 @@
 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                {{ $kodebarang->id_kategori }}</td>
+                                {{ $kodebarang->kategori->nama_kategori }}</td>
 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
@@ -125,8 +127,7 @@
                                 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                {{$kodebarang->foto}}
-                                <!-- <img src="/img/{{$kodebarang->foto}}" alt="stok-barang{{$kodebarang->id}}"> -->
+                                20
                             </td>
 
                             <td
@@ -171,63 +172,7 @@
         </div>
     </div>
 
-    <!-- This example requires Tailwind CSS v2.0+ -->
-    <div class="py-3 flex items-center justify-between border-t border-gray-200">
-        <div class="flex-1 flex justify-between sm:hidden">
-            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-            Previous
-            </a>
-            <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-            Next
-            </a>
-        </div>
-        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-            <div>
-            <p class="text-sm text-gray-700">
-                Showing
-                <span class="font-medium">2</span>
-                to
-                <span class="font-medium">2</span>
-                of
-                <span class="font-medium">2</span>
-                results
-            </p>
-            </div>
-            <div>
-            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                <span class="sr-only">Previous</span>
-                <!-- Heroicon name: solid/chevron-left -->
-                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                </a>
-                <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                1
-                </a>
-                <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                <span class="sr-only">Next</span>
-                <!-- Heroicon name: solid/chevron-right -->
-                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                </svg>
-                </a>
-            </nav>
-            </div>
-        </div>
+    <div class="mt-4">
+        {{ $kodebarang_list->links() }}
     </div>
-
-    <script text="text/javascript">
-        function previewImage(data) {
-            Swal.fire({
-                title: 'Sweet!',
-                text: 'Modal with a custom image.',
-                imageUrl: '/img/data',
-                imageWidth: 400,
-                imageHeight: 200,
-                imageAlt: 'Custom image',
-            })
-        }
-    
-    </script>
 @endsection

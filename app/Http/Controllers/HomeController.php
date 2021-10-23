@@ -33,6 +33,9 @@ class HomeController extends Controller
         $halaman = 'Dashboard';
         $jumlah_barangkeluar = BarangKeluar::count();
         $jumlah_barangmasuk = BarangMasuk::count();
+        $barangkeluar = BarangKeluar::all();
+        $barangmasuk = BarangMasuk::all();
+
         return view('home', compact('halaman', 'jumlah_barangkeluar', 'jumlah_barangmasuk'));
     }
 

@@ -198,28 +198,30 @@
                                                     <div class="p-6 flex-grow">
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="kode_barang">Kode Barang</label>
-                                                            <input class="rounded text-gray-600 text-sm border p-2" type="text" id="kode_barang" name="kode_barang" />
+                                                            <input class="rounded text-gray-600 text-sm border p-2" type="text" id="kode_barang" name="kode_barang" value="{{ $kodebarang->kode_barang }}" />
                                                         </div>
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="nama_barang">Nama Barang</label>
-                                                            <input class="rounded text-gray-600 text-sm border p-2" type="text" id="nama_barang" name="nama_barang" />
+                                                            <input class="rounded text-gray-600 text-sm border p-2" type="text" id="nama_barang" name="nama_barang" value="{{ $kodebarang->nama_barang }}" />
                                                         </div>
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="id_kategori">Kategori</label>
                                                             <select name="id_kategori" id="id_kategori" class="rounded text-gray-600 text-sm border p-2">
-                                                                <option disabled selected>Pilih Kategori</option>
+                                                                <option selected value="{{ $kodebarang->id_kategori }}">{{ $kodebarang->kategori->nama_kategori }}</option>
                                                                 @foreach ($kategori_list as $kategori)
-                                                                <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                                                    @if ($kategori->id != $kodebarang->id_kategori)
+                                                                        <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                                                    @endif
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="harga">Harga</label>
-                                                            <input class="rounded text-gray-600 text-sm border p-2" type="number" id="harga" name="harga" />
+                                                            <input class="rounded text-gray-600 text-sm border p-2" type="number" id="harga" name="harga" value="{{ $kodebarang->harga }}" />
                                                         </div>
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="foto">Gambar</label>
-                                                            <input class="rounded text-gray-600 text-sm border p-2" type="file" id="foto" name="foto" />
+                                                            <input class="rounded text-gray-600 text-sm border p-2" type="file" id="foto" name="foto" value="{{ $kodebarang->foto }}" />
                                                         </div>
                                                     </div>
                                                     <div class="px-6 py-3 border-t">

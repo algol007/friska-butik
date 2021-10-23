@@ -25,7 +25,7 @@ Route::get('/404', 'App\Http\Controllers\HomeController@notfound');
 // Route::middleware(['ceklogin'])->group(function () {
   Route::get('/', 'App\Http\Controllers\HomeController@index');
 
-  Route::get('/barang-masuk', 'App\Http\Controllers\BarangMasukController@index')->middleware('ceklogin');
+  Route::get('/barang-masuk', 'App\Http\Controllers\BarangMasukController@index');
   Route::get('/barang-masuk/search', 'App\Http\Controllers\BarangMasukController@search');
   Route::post('/barang-masuk', 'App\Http\Controllers\BarangMasukController@store');
   Route::get('/barang-masuk/create', 'App\Http\Controllers\BarangMasukController@create');
@@ -54,6 +54,8 @@ Route::get('/404', 'App\Http\Controllers\HomeController@notfound');
 
   Route::get('/stok-barang', 'App\Http\Controllers\StokBarangController@index');
   Route::get('/stok-barang/search', 'App\Http\Controllers\StokBarangController@search');
+  Route::get('/stok-barang/cetak_preview', 'App\Http\Controllers\StokBarangController@cetak_preview');
+  Route::get('/stok-barang/cetak_pdf', 'App\Http\Controllers\StokBarangController@cetak_pdf');
   Route::post('/stok-barang', 'App\Http\Controllers\StokBarangController@store');
   Route::get('/stok-barang/create', 'App\Http\Controllers\StokBarangController@create');
   Route::get('/stok-barang/{id}', 'App\Http\Controllers\StokBarangController@show');

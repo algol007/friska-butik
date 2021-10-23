@@ -51,6 +51,17 @@
 @section('content')
     <h3 class="text-gray-700 text-3xl font-medium">Barang Masuk</h3>
 
+    @if (count($errors) > 0)
+        <div class="text-red-500">
+            <strong>Whoops!</strong> There were some problems with your input.
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="mt-8 flex flex-wrap justify-end items-center">
         <!-- <div class="flex items-center mb-4 md:mb-0">
             <div>Show</div>
@@ -185,20 +196,22 @@
                                                     <div class="p-6 flex-grow">
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="tanggal_masuk">Tanggal</label>
-                                                            <input class="rounded text-gray-600 text-sm border p-2" type="date" id="tanggal_masuk" name="tanggal_masuk" />
+                                                            <input class="rounded text-gray-600 text-sm border p-2" type="date" id="tanggal_masuk" name="tanggal_masuk" value="{{$barangmasuk->tanggal_masuk}}" />
                                                         </div>
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="id_kode_barang">Kode Barang</label>
                                                             <select name="id_kode_barang" id="id_kode_barang" class="rounded text-gray-600 text-sm border p-2">
-                                                                <option disabled selected>Pilih Kode Barang</option>
+                                                                <option selected value="{{ $barangmasuk->kodebarang->id }}">{{ $barangmasuk->kodebarang->kode_barang }}</option>
                                                                 @foreach ($kodebarang_list as $kodebarang)
-                                                                <option value="{{ $kodebarang->id }}">{{ $kodebarang->kode_barang }}</option>
+                                                                    @if ($kodebarang->id != $barangmasuk->id_kodebarang)
+                                                                        <option value="{{ $kodebarang->id }}">{{ $kodebarang->kode_barang }}</option>
+                                                                    @endif
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="flex flex-col mb-4">
                                                             <label class="text-left font-semibold text-gray-600 text-sm" for="jumlah">Jumlah</label>
-                                                            <input class="rounded text-gray-600 text-sm border p-2" type="number" id="jumlah" name="jumlah" />
+                                                            <input class="rounded text-gray-600 text-sm border p-2" type="number" id="jumlah" name="jumlah" value="{{$barangmasuk->jumlah}}" />
                                                         </div>
                                                     </div>
                                                     <div class="px-6 py-3 border-t">

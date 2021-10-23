@@ -184,24 +184,26 @@
                                                     @csrf
                                                     <input type="hidden" name="id" id="id" value="{{ $barangkeluar->id }}">
                                                         <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
-                                                        <div class="px-6 py-3 text-xl border-b font-bold text-gray-600">Edit Barang Keluar</div>
+                                                        <div class="text-left px-6 py-3 text-xl border-b font-bold text-gray-600">Edit Barang Keluar</div>
                                                         <div class="p-6 flex-grow">
                                                             <div class="flex flex-col mb-4">
                                                                 <label class="text-left font-semibold text-gray-600 text-sm" for="tanggal_keluar">Tanggal</label>
-                                                                <input class="rounded text-gray-600 text-sm border p-2" type="date" id="tanggal_keluar" name="tanggal_keluar" />
+                                                                <input class="rounded text-gray-600 text-sm border p-2" type="date" id="tanggal_keluar" name="tanggal_keluar" value="{{$barangkeluar->tanggal_keluar}}" />
                                                             </div>
                                                             <div class="flex flex-col mb-4">
                                                                 <label class="text-left font-semibold text-gray-600 text-sm" for="id_kode_barang">Kode Barang</label>
                                                                 <select name="id_kode_barang" id="id_kode_barang" class="rounded text-gray-600 text-sm border p-2">
-                                                                    <option disabled selected>Pilih Kode Barang</option>
+                                                                    <option selected value="{{ $barangkeluar->kodebarang->id }}">{{ $barangkeluar->kodebarang->kode_barang }}</option>
                                                                     @foreach ($kodebarang_list as $kodebarang)
-                                                                    <option value="{{ $kodebarang->id }}">{{ $kodebarang->kode_barang }}</option>
+                                                                        @if ($kodebarang->id != $barangkeluar->id_kodebarang)
+                                                                            <option value="{{ $kodebarang->id }}">{{ $kodebarang->kode_barang }}</option>
+                                                                        @endif
                                                                     @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="flex flex-col mb-4">
                                                                 <label class="text-left font-semibold text-gray-600 text-sm" for="jumlah">Jumlah</label>
-                                                                <input class="rounded text-gray-600 text-sm border p-2" type="number" id="jumlah" name="jumlah" />
+                                                                <input class="rounded text-gray-600 text-sm border p-2" type="number" id="jumlah" name="jumlah" value="{{$barangkeluar->jumlah}}" />
                                                             </div>
                                                         </div>
                                                         <div class="px-6 py-3 border-t">

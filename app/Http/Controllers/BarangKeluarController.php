@@ -54,7 +54,7 @@ class BarangKeluarController extends Controller
         ]);
 
         if($validator->fails()) {
-            return redirect('barang-masuk')
+            return redirect('barang-keluar')
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -107,7 +107,7 @@ class BarangKeluarController extends Controller
         ]);
 
         if($validator->fails()) {
-            return redirect('kategori')
+            return redirect('barang-keluar')
                 ->withInput()
                 ->withErrors($validator);
         }

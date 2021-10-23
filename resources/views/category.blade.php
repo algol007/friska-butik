@@ -138,7 +138,7 @@
                                                         <div class="p-6 flex-grow">
                                                             <div class="flex flex-col mb-4">
                                                                 <label class="font-semibold text-gray-600 text-sm text-left" for="nama_kategori">Nama Kategori</label>
-                                                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="nama_kategori" name="nama_kategori" />
+                                                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="nama_kategori" name="nama_kategori" value="{{ $kategori->nama_kategori }}" />
                                                             </div>
                                                         </div>
                                                         <div class="px-6 py-3 border-t">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\KodeBarang;
 use App\Models\StokBarang;
 use Illuminate\Http\Request;
+use PDF;
 
 class StokBarangController extends Controller
 {
@@ -14,10 +15,9 @@ class StokBarangController extends Controller
      */
     public function index()
     {
-        $halaman = 'Kode Barang';
         $kodebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(10);
         $jumlah_kodebarang = KodeBarang::count();
-        return view('availability', compact('halaman', 'kodebarang_list', 'jumlah_kodebarang'))->with('no', 1);
+        return view('availability', compact('kodebarang_list', 'jumlah_kodebarang'))->with('no', 1);
     }
 
     /**
@@ -84,5 +84,19 @@ class StokBarangController extends Controller
     public function destroy(StokBarang $stokBarang)
     {
         //
+    }
+
+    public function cetak_preview()
+    {
+        $kodebarang = KodeBarang::all();
+        return view('preview.availability', compact('kodebarang'));
+    }
+
+    public function cetak_pdf()
+    {
+        $kodebarang = KodeBarang::all();
+
+        $pdf = PDF::loadview('preview.availability',['kodebarang'=>$kodebarang]);
+        return $pdf->stream();
     }
 }

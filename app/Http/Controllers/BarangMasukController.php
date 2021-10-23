@@ -98,7 +98,7 @@ class BarangMasukController extends Controller
         ]);
 
         if($validator->fails()) {
-            return redirect('kategori')
+            return redirect('barang-masuk')
                 ->withInput()
                 ->withErrors($validator);
         }
