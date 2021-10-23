@@ -1,19 +1,58 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['title' => 'Kategori'])
+
+@section('header')
+    <header class="flex justify-between items-center py-4 px-6 bg-white">
+        <div class="flex items-center">
+            <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <form action="/kategori/search" method="GET" class="relative mx-4 lg:mx-0">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                    <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
+                    </svg>
+                </span>
+
+                <input class="form-input w-full rounded-md pl-10 pr-4 focus:outline-none" name="search" id="search" type="text"
+                    placeholder="Cari Kategori">
+            </form>
+        </div>
+
+        <div class="flex items-center">    
+            <div x-data="{ dropdownOpen: false }" class="relative">
+                <button @click="dropdownOpen = ! dropdownOpen"
+                    class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
+                    <img class="h-full w-full object-cover"
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        alt="Your avatar">
+                </button>
+
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"
+                    style="display: none;"></div>
+
+                <div x-show="dropdownOpen"
+                    class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10"
+                    style="display: none;">
+                    <div
+                        class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</div>
+                </div>
+            </div>
+        </div>
+    </header>
+@endsection
 
 @section('content')
     <h3 class="text-gray-700 text-3xl font-medium">Kategori</h3>
     
     <div class="w-full lg:w-1/2 md:w-2/3">    
         <div class="mt-8 flex flex-wrap justify-end items-center">
-            <!-- <div class="flex items-center mb-4 md:mb-0">
-                <div>Show</div>
-                <select name="show" id="show" value="10" class="mx-2 border py-2 px-4 rounded">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                </select>
-                <div>Entries</div>
-            </div> -->
             <div x-data="{ show: false }">
                 <div class="flex justify-center">
                     <button @click={show=true} type="button" class="bg-secondary py-2 px-4 rounded text-white flex items-center">

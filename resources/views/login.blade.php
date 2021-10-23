@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Auth - Login</title>
+        <title>Login - Frisqa Butik</title>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/costum.css') }}" rel="stylesheet">
@@ -21,7 +21,7 @@
         <div class="bg-white w-full md:w-1/2 lg:w-1/3 shadow-xl rounded p-8 relative z-20">
           <h1 class="text-3xl font-bold text-center text-primary">FRISQA BUTIK</h1>
 
-          <form method="POST" action="/actionlogin" class="space-y-5 mt-5" onsubmit="login()">
+          <form method="POST" action="/login" class="space-y-5 mt-5" onsubmit="login()">
             @csrf
             <div>
               <label for="username" class="text-primary font-bold">Username</label>
@@ -38,15 +38,11 @@
       </div>
 
       <script>
-        // function login() {
-        //   localStorage.setItem("login", true);
-        //   window.location.replace("/");
-        // }
+        localStorage.clear();
 
-        // const isLogin = localStorage.getItem("login");
-        // if(isLogin) {
-        //     window.location.replace("/");
-        // }
+        function login() {
+          localStorage.setItem("login", true);
+        }
       </script>
     </body>
 </html>

@@ -6,6 +6,7 @@ use App\Models\KodeBarang;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class KodeBarangController extends Controller
 {
@@ -16,21 +17,25 @@ class KodeBarangController extends Controller
      */
     public function index()
     {
-        $halaman = 'Kode Barang';
         $kodebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(10);
         $jumlah_kodebarang = KodeBarang::count();
         $kategori_list = Category::all();
-        return view('code', compact('halaman', 'kodebarang_list', 'jumlah_kodebarang', 'kategori_list'))->with('no', 1);
+        return view('code', compact('kodebarang_list', 'jumlah_kodebarang', 'kategori_list'))->with('no', 1);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Search data from the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
+		$search = $request->search;
+        $kodebarang_list = DB::table('kode_barangs')
+        ->where('nama_barang','like',"%".$search."%")
+        ->paginate(10);
+
+        return view('code', compact('kodebarang_list'))->with('no', 1);
     }
 
     /**

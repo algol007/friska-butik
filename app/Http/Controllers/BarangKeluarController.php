@@ -23,13 +23,19 @@ class BarangKeluarController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Search data from the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        return view('hobi.create');
+		$search = $request->search;
+
+        $kategori_list = DB::table('categories')
+        ->where('nama_kategori','like',"%".$search."%")
+        ->paginate(10);
+
+        return view('category', compact('kategori_list'))->with('no', 1);
     }
 
     /**
