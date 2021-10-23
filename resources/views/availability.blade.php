@@ -125,16 +125,43 @@
                                 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                20</td>
+                                {{$kodebarang->foto}}
+                                <!-- <img src="/img/{{$kodebarang->foto}}" alt="stok-barang{{$kodebarang->id}}"> -->
+                            </td>
 
                             <td
                                 class="flex border-b justify-end px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                                <div class="h-6 w-6 cursor-pointer" onclick="previewImage()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>                           
-                                </div>
+                                <div x-data="{ show: false }">
+                                    <div class="flex justify-center">
+                                        <div class="h-6 w-6 cursor-pointer" @click={show=true}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>                           
+                                        </div>
+                                    </div>
+                                    <div x-show="show" tabindex="0" class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
+                                            <div  @click.away="show = false" class="z-50 relative p-3 mx-auto my-0 max-w-full" style="width: 600px;">
+                                            <div class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                            
+                                            <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
+                                            <div class="text-left px-6 py-3 text-xl border-b font-bold text-gray-600">{{$kodebarang->foto ?? 'Tidak Ada Gambar'}}</div>
+                                            <div class="px-6 py-3 border-t">
+                                                <div class="flex flex-col justify-end">
+                                                    @if ($kodebarang->foto)
+                                                        <img src="/img/{{$kodebarang->foto}}" alt="stok-barang{{$kodebarang->id}}">
+                                                    @else
+                                                        <div class="h-40 flex justify-center items-center">Tidak Ada Gambar</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        </div>
+                                            <div class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black opacity-50"></div>
+                                        </div>
+                                    </div>    
+
                             </td>
                         </tr>
                         @endforeach
@@ -191,11 +218,11 @@
     </div>
 
     <script text="text/javascript">
-        function previewImage() {
+        function previewImage(data) {
             Swal.fire({
                 title: 'Sweet!',
                 text: 'Modal with a custom image.',
-                imageUrl: 'https://unsplash.it/400/200',
+                imageUrl: '/img/data',
                 imageWidth: 400,
                 imageHeight: 200,
                 imageAlt: 'Custom image',

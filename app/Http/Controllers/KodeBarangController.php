@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class KodeBarangController extends Controller
 {
@@ -46,22 +47,31 @@ class KodeBarangController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        $validator = Validator::make($input, [
-            'id_kategori' => 'required', 
-            'kode_barang' => 'required', 
-            'nama_barang' => 'required', 
-            'harga' => 'required',
-        ]);
+        if ($request->hasFile('foto')) {
+            if ($request->file('foto')->isValid()) {
+                $validated = $request->validate([
+                    'id_kategori' => 'required', 
+                    'kode_barang' => 'required', 
+                    'nama_barang' => 'required', 
+                    'harga' => 'required',
+                    'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
 
-        if($validator->fails()) {
-            return redirect('kode-barang')
-                ->withInput()
-                ->withErrors($validator);
+                $foto = time().'.'.$request->foto->extension();  
+                $request->foto->move(public_path('img'), $foto);
+        
+                $file = KodeBarang::create([
+                    'id_kategori' => $validated['id_kategori'],
+                    'kode_barang' => $validated['kode_barang'],
+                    'nama_barang' => $validated['nama_barang'],
+                    'harga' => $validated['harga'],
+                    'foto' => $foto,
+                ]);
+
+                return redirect("kode-barang")->with('success', 'Successfully Add Data');
+            }
         }
 
-        $kodebarang = KodeBarang::create($input);
-        return redirect("kode-barang")->with('success', 'Successfully Add Data');
     }
 
     /**
@@ -96,19 +106,30 @@ class KodeBarangController extends Controller
     public function update(Request $request, $id)
     {
         $kodebarang = KodeBarang::findOrFail($id);
-        $input = $request->all();
         
-        $validator = Validator::make($input, [
-            'id_kategori' => 'required', 
-            'kode_barang' => 'required', 
-            'nama_barang' => 'required', 
-            'harga' => 'required',
-        ]);
+        if ($request->hasFile('foto')) {
+            if ($request->file('foto')->isValid()) {
+                $validated = $request->validate([
+                    'id_kategori' => 'required', 
+                    'kode_barang' => 'required', 
+                    'nama_barang' => 'required', 
+                    'harga' => 'required',
+                    'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
 
-        if($validator->fails()) {
-            return redirect('kategori')
-                ->withInput()
-                ->withErrors($validator);
+                $foto = time().'.'.$request->foto->extension();  
+                $request->foto->move(public_path('img'), $foto);
+        
+                $kodebarang->update([
+                    'id_kategori' => $validated['id_kategori'],
+                    'kode_barang' => $validated['kode_barang'],
+                    'nama_barang' => $validated['nama_barang'],
+                    'harga' => $validated['harga'],
+                    'foto' => $foto,
+                ]);
+
+                return redirect("kode-barang")->with('success', 'Successfully Add Data');
+            }
         }
 
         $kodebarang->update($request->all());

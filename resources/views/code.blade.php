@@ -51,6 +51,17 @@
 @section('content')
     <h3 class="text-gray-700 text-3xl font-medium">Kode Barang</h3>
     
+    @if (count($errors) > 0)
+        <div class="text-red-500">
+            <strong>Whoops!</strong> There were some problems with your input.
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="w-full">    
         <div class="mt-8 flex flex-wrap justify-end items-center">
             <!-- <div class="flex items-center mb-4 md:mb-0">
@@ -75,7 +86,7 @@
                 </div>
                 <div x-show="show" tabindex="0" class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
                     <div  @click.away="show = false" class="z-50 relative p-3 mx-auto my-0 max-w-full" style="width: 600px;">
-                        <form method="POST" action="/kode-barang" class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                        <form method="POST" action="/kode-barang" enctype="multipart/form-data" class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
                             @csrf
                             <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
                             <div class="px-6 py-3 text-xl border-b font-bold text-gray-600">Tambah Kode Barang</div>
@@ -178,7 +189,7 @@
                                             </div>
                                         <div x-show="show" tabindex="0" class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
                                             <div  @click.away="show = false" class="z-50 relative p-3 mx-auto my-0 max-w-full" style="width: 600px;">
-                                                <form method="POST" action="/kode-barang/{{ $kodebarang->id }}" class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                                                <form method="POST" action="/kode-barang/{{ $kodebarang->id }}" enctype="multipart/form-data" class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
                                                     @method('patch')
                                                     @csrf
                                                     <input type="hidden" name="id" id="id" value="{{ $kodebarang->id }}">
