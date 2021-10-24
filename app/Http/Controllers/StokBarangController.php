@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\KodeBarang;
 use App\Models\StokBarang;
 use Illuminate\Http\Request;
+use App\Models\BarangMasuk;
+use App\Models\BarangKeluar;
 use PDF;
 
 class StokBarangController extends Controller
@@ -17,7 +19,9 @@ class StokBarangController extends Controller
     {
         $kodebarang_list = KodeBarang::orderBy('created_at', 'desc')->paginate(10);
         $jumlah_kodebarang = KodeBarang::count();
-        return view('availability', compact('kodebarang_list', 'jumlah_kodebarang'))->with('no', 1);
+        $barangmasuk = BarangMasuk::all();
+        $barangkeluar = BarangKeluar::all();
+        return view('availability', compact('kodebarang_list', 'jumlah_kodebarang', 'barangmasuk', 'barangkeluar'))->with('no', 1);
     }
 
     /**

@@ -35,7 +35,17 @@
 
 @section('content')
 <h3 class="text-gray-700 text-3xl font-medium">Dashboard</h3>
-    
+    @php
+        $sum = collect($barangmasuk)
+        ->reduce(function($carry, $item){
+            return $carry + $item["jumlah"];
+        }, 0);
+
+        $sum2 = collect($barangkeluar)
+        ->reduce(function($carry, $item){
+            return $carry + $item["jumlah"];
+        }, 0);
+    @endphp
     <div class="mt-4">
         <div class="flex flex-wrap -mx-6">
             <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
@@ -46,7 +56,7 @@
                     </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">{{ $jumlah_barangmasuk }}</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $sum }}</h4>
                         <div class="text-gray-500">Barang Masuk</div>
                     </div>
                 </a>
@@ -60,7 +70,7 @@
                     </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">{{ $jumlah_barangkeluar }}</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $sum2 }}</h4>
                         <div class="text-gray-500">Barang Keluar</div>
                     </div>
                 </a>
@@ -74,7 +84,7 @@
                     </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">{{ $jumlah_barangmasuk - $jumlah_barangkeluar}}</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $sum - $sum2}}</h4>
                         <div class="text-gray-500">Jumlah Stok</div>
                     </div>
                 </a>

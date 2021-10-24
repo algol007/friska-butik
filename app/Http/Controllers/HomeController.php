@@ -31,12 +31,10 @@ class HomeController extends Controller
     public function index()
     {        
         $halaman = 'Dashboard';
-        $jumlah_barangkeluar = BarangKeluar::count();
-        $jumlah_barangmasuk = BarangMasuk::count();
-        $barangkeluar = BarangKeluar::all();
+        $barangkeluar = BarangKeluar::get(['jumlah']);
         $barangmasuk = BarangMasuk::all();
 
-        return view('home', compact('halaman', 'jumlah_barangkeluar', 'jumlah_barangmasuk'));
+        return view('home', compact('barangkeluar', 'barangmasuk'));
     }
 
     /**

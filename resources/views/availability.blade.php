@@ -127,7 +127,15 @@
                                 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                20
+                                @php
+                                    if($kodebarang->kode_barang == 'BJU-88') {
+                                        $sum = collect($barangmasuk)
+                                        ->reduce(function($carry, $item){
+                                            return $carry + $item["jumlah"];
+                                        }, 0);
+                                    }
+                                @endphp
+                                <div>{{ $sum ?? '0' }}</div>
                             </td>
 
                             <td
