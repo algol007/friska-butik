@@ -2,84 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Auth;
 use Illuminate\Http\Request;
+use Hash;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('login');
+    }  
+    
+
+    public function login(Request $request)
+    {
+        $username = User::where('username', '=', $request->username)->first();
+        if ($username) {
+            $password = $username->password;
+            if (Hash::check($request->password, $password)) {
+                $request->session()->regenerate();
+                return redirect('/'); 
+            } else {
+                return redirect('/login');
+            }
+        } else {
+            return redirect('/login');
+        }
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function logout(Request $request)
     {
-        //
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');   
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Auth  $auth
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Auth $auth)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Auth  $auth
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Auth $auth)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Auth  $auth
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Auth $auth)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Auth  $auth
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Auth $auth)
-    {
-        //
-    }
 }

@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $halaman = 'User Management';
-        $user_list = User::orderBy('created_at', 'asc')->paginate(2);
+        $user_list = User::orderBy('created_at', 'asc')->paginate(10);
         return view('user', compact('halaman', 'user_list'))->with('no', 1);
     }
 

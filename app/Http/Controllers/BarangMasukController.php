@@ -86,9 +86,26 @@ class BarangMasukController extends Controller
      * @param  \App\Models\BarangMasuk  $barangMasuk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BarangMasuk $barangMasuk)
+    public function update(Request $request, $id)
     {
-        //
+        $barangmasuk = BarangMasuk::findOrFail($id);
+        $input = $request->all();
+        
+        $validator = Validator::make($input, [
+            'id_kode_barang' => 'required', 
+            'tanggal_masuk' => 'required', 
+            'jumlah' => 'required', 
+        ]);
+
+        if($validator->fails()) {
+            return redirect('barang-masuk')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $barangmasuk->update($request->all());
+
+        return redirect('barang-masuk')->with('success', 'Successfully Update Data');
     }
 
     /**

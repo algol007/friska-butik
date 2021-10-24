@@ -1,19 +1,58 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['title' => 'Kategori'])
+
+@section('header')
+    <header class="flex justify-between items-center py-4 px-6 bg-white">
+        <div class="flex items-center">
+            <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <form action="/kategori/search" method="GET" class="relative mx-4 lg:mx-0">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                    <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
+                    </svg>
+                </span>
+
+                <input class="form-input w-full rounded-md pl-10 pr-4 focus:outline-none" name="search" id="search" type="text"
+                    placeholder="Cari Kategori">
+            </form>
+        </div>
+
+        <div class="flex items-center">    
+            <div x-data="{ dropdownOpen: false }" class="relative">
+                <button @click="dropdownOpen = ! dropdownOpen"
+                    class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
+                    <img class="h-full w-full object-cover"
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        alt="Your avatar">
+                </button>
+
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"
+                    style="display: none;"></div>
+
+                <div x-show="dropdownOpen"
+                    class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10"
+                    style="display: none;">
+                    <div
+                        class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</div>
+                </div>
+            </div>
+        </div>
+    </header>
+@endsection
 
 @section('content')
     <h3 class="text-gray-700 text-3xl font-medium">Kategori</h3>
     
     <div class="w-full lg:w-1/2 md:w-2/3">    
-        <div class="mt-8 flex flex-wrap justify-between items-center">
-            <div class="flex items-center mb-4 md:mb-0">
-                <div>Show</div>
-                <select name="show" id="show" value="10" class="mx-2 border py-2 px-4 rounded">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                </select>
-                <div>Entries</div>
-            </div>
+        <div class="mt-8 flex flex-wrap justify-end items-center">
             <div x-data="{ show: false }">
                 <div class="flex justify-center">
                     <button @click={show=true} type="button" class="bg-secondary py-2 px-4 rounded text-white flex items-center">
@@ -90,22 +129,25 @@
                                             </div>
                                             <div x-show="show" tabindex="0" class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed">
                                                 <div  @click.away="show = false" class="z-50 relative p-3 mx-auto my-0 max-w-full" style="width: 600px;">
-                                                    <div class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                                                    <form method="POST" action="/kategori/{{ $kategori->id }}" class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
+                                                    @method('patch')
+                                                    @csrf
+                                                        <input type="hidden" name="id" id="id" value="{{ $kategori->id }}">
                                                         <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
                                                         <div class="px-6 py-3 text-xl border-b font-bold text-gray-600 text-left">Edit Kategori</div>
                                                         <div class="p-6 flex-grow">
                                                             <div class="flex flex-col mb-4">
-                                                                <label class="font-semibold text-gray-600 text-sm text-left" for="name">Nama Kategori</label>
-                                                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="name" name="name" />
+                                                                <label class="font-semibold text-gray-600 text-sm text-left" for="nama_kategori">Nama Kategori</label>
+                                                                <input class="rounded text-gray-600 text-sm border p-2" type="text" id="nama_kategori" name="nama_kategori" value="{{ $kategori->nama_kategori }}" />
                                                             </div>
                                                         </div>
                                                         <div class="px-6 py-3 border-t">
                                                             <div class="flex justify-end">
                                                                 <button type="button" class="text-sm text-red-500 px-4 py-2" @click={show=false}>Batal</button>
-                                                                <button type="button" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="editCategory()">Simpan</button>
+                                                                <button type="submit" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="editCategory()">Simpan</button>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
                                                 <div class="z-40 overflow-auto left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black opacity-50"></div>
                                             </div>

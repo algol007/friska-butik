@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -15,22 +16,27 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $halaman = 'Kategori';
-        $kategori_list = Category::orderBy('created_at', 'desc')->paginate(2);
+        $kategori_list = Category::orderBy('created_at', 'desc')->paginate(10);
         $jumlah_kategori = Category::count();
-        return view('category', compact('halaman', 'kategori_list', 'jumlah_kategori'))->with('no', 1);;
+        return view('category', compact('kategori_list', 'jumlah_kategori'))->with('no', 1);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Search data from the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
-    }
+		$search = $request->search;
 
+        $kategori_list = DB::table('categories')
+        ->where('nama_kategori','like',"%".$search."%")
+        ->paginate(10);
+
+        return view('category', compact('kategori_list'))->with('no', 1);
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -83,7 +89,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         $kategori = Category::findOrFail($id);
         $input = $request->all();
@@ -100,7 +106,7 @@ class CategoryController extends Controller
 
         $kategori->update($request->all());
 
-        return redirect('kategori');
+        return redirect('kategori')->with('success', 'Successfully Update Data');;
     }
 
     /**

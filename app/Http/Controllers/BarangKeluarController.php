@@ -23,13 +23,19 @@ class BarangKeluarController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Search data from the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        return view('hobi.create');
+		$search = $request->search;
+
+        $kategori_list = DB::table('categories')
+        ->where('nama_kategori','like',"%".$search."%")
+        ->paginate(10);
+
+        return view('category', compact('kategori_list'))->with('no', 1);
     }
 
     /**
@@ -48,7 +54,7 @@ class BarangKeluarController extends Controller
         ]);
 
         if($validator->fails()) {
-            return redirect('barang-masuk')
+            return redirect('barang-keluar')
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -89,24 +95,26 @@ class BarangKeluarController extends Controller
      * @param  \App\Models\BarangKeluar  $barangKeluar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BarangKeluar $barangKeluar)
+    public function update(Request $request, $id)
     {
-        // $hobi = Hobi::findOrFail($id);
-        // $input = $request->all();
+        $barangkeluar = BarangKeluar::findOrFail($id);
+        $input = $request->all();
         
-        // $validator = Validator::make($input, [
-        //     'nama_hobi' => 'required|string|max:30',
-        // ]);
-    
-        // if($validator->fails()) {
-        //     return redirect('hobi/'. $id . '/edit')
-        //         ->withInput()
-        //         ->withErrors($validator);
-        // }
+        $validator = Validator::make($input, [
+            'id_kode_barang' => 'required', 
+            'tanggal_keluar' => 'required', 
+            'jumlah' => 'required', 
+        ]);
 
-        // $hobi->update($request->all());
+        if($validator->fails()) {
+            return redirect('barang-keluar')
+                ->withInput()
+                ->withErrors($validator);
+        }
 
-        // return redirect('hobi');
+        $barangkeluar->update($request->all());
+
+        return redirect('barang-keluar')->with('success', 'Successfully Update Data');
     }
 
     /**
