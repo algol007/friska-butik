@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/costum.css') }}" rel="stylesheet">
+        <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
     </head>
     <body class="antialiased">
 <!-- component -->
@@ -21,14 +22,16 @@
         <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
     
         <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-primary overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
-            <div class="flex items-center justify-center mt-8">
-                <div class="flex items-center">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <div class="flex items-center justify-center mt-4">
+                <a href="/">
+                    <div class="w-28 h-28 mx-auto">
+                        <img src="/logo.png" alt="frisqa-butik" class="-ml-2">
+                    </div>
                     <span class="text-2xl mx-2 font-semibold">Frisqa Butik</span>
-                </div>
+                </a>
             </div>
     
-            <nav class="mt-10">
+            <nav class="mt-8">
                 <a class="flex items-center py-3 px-6 hover:bg-gray-700 hover:bg-opacity-25" href="/">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />

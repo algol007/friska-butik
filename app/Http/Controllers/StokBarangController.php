@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Category;
 use App\Models\KodeBarang;
 use App\Models\StokBarang;
 use Illuminate\Http\Request;
@@ -21,17 +22,20 @@ class StokBarangController extends Controller
         $jumlah_kodebarang = KodeBarang::count();
         $barangmasuk = BarangMasuk::all();
         $barangkeluar = BarangKeluar::all();
-        return view('availability', compact('kodebarang_list', 'jumlah_kodebarang', 'barangmasuk', 'barangkeluar'))->with('no', 1);
+        return view('availability', compact('kodebarang_list', 'jumlah_kodebarang', 'barangmasuk', 'barangkeluar'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Search data from the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
+		$keyword = $request->search;
+        $kodebarang_list = KodeBarang::where('nama_barang', 'like', "%" . $keyword . "%")->paginate(10);
+
+        return view('availability', compact('kodebarang_list'));
     }
 
     /**

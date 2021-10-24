@@ -31,12 +31,11 @@ class KodeBarangController extends Controller
      */
     public function search(Request $request)
     {
-		$search = $request->search;
-        $kodebarang_list = DB::table('kode_barangs')
-        ->where('nama_barang','like',"%".$search."%")
-        ->paginate(10);
+		$keyword = $request->search;
+        $kodebarang_list = KodeBarang::where('nama_barang', 'like', "%" . $keyword . "%")->paginate(10);
+        $kategori_list = Category::all();
 
-        return view('code', compact('kodebarang_list'))->with('no', 1);
+        return view('code', compact('kodebarang_list', 'kategori_list'))->with('no', 1);
     }
 
     /**

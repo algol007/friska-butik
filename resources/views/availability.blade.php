@@ -10,7 +10,7 @@
                 </svg>
             </button>
 
-            <form action="/kategori/search" method="GET" class="relative mx-4 lg:mx-0">
+            <form action="/stok-barang/search" method="GET" class="relative mx-4 lg:mx-0">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
                     <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none">
                         <path
@@ -21,7 +21,7 @@
                 </span>
 
                 <input class="form-input w-32 sm:w-64 rounded-md pl-10 pr-4 focus:outline-none" name="search" id="search" type="text"
-                    placeholder="Search Kategori">
+                    placeholder="Cari Stok Barang">
             </form>
         </div>
 
@@ -127,15 +127,18 @@
                                 
                             <td
                                 class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                @php
-                                    if($kodebarang->kode_barang == 'BJU-88') {
-                                        $sum = collect($barangmasuk)
-                                        ->reduce(function($carry, $item){
-                                            return $carry + $item["jumlah"];
-                                        }, 0);
-                                    }
-                                @endphp
-                                <div>{{ $sum ?? '0' }}</div>
+                                @php $totalmasuk=0; $totalkeluar=0; @endphp
+                                @foreach ($barangmasuk as $bm)
+                                    @if($kodebarang->kode_barang == $bm->kodebarang->kode_barang)
+                                        <div class="hidden">{{ $totalmasuk += $bm->jumlah }}</div>
+                                    @endif
+                                @endforeach
+                                @foreach ($barangkeluar as $bk)
+                                    @if($kodebarang->kode_barang == $bk->kodebarang->kode_barang)
+                                        <div class="hidden">{{ $totalkeluar += $bk->jumlah }}</div>
+                                    @endif
+                                @endforeach
+                                <div>{{ $totalmasuk - $totalkeluar }}</div>
                             </td>
 
                             <td
@@ -154,7 +157,7 @@
                                             <div class="bg-white rounded shadow-lg border flex flex-col overflow-hidden">
                             
                                             <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
-                                            <div class="text-left px-6 py-3 text-xl border-b font-bold text-gray-600">{{$kodebarang->foto ?? 'Tidak Ada Gambar'}}</div>
+                                            <div class="text-left px-6 py-3 text-xl border-b font-bold text-gray-600">{{$kodebarang->nama_barang ?? 'Tidak Ada Gambar'}} - Rp {{$kodebarang->harga ?? '0'}}</div>
                                             <div class="px-6 py-3 border-t">
                                                 <div class="flex flex-col justify-end">
                                                     @if ($kodebarang->foto)
