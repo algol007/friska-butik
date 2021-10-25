@@ -196,7 +196,7 @@
                                                         <div class="px-6 py-3 border-t">
                                                             <div class="flex justify-end">
                                                                 <button type="button" class="text-sm text-red-500 px-4 py-2" @click={show=false}>Batal</button>
-                                                                <button type="submit" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="addItemOut()">Simpan</button>
+                                                                <button type="submit" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="editItemOut()">Simpan</button>
                                                             </div>
                                                         </div>
                                                     </form>

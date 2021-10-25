@@ -51,17 +51,6 @@
 @section('content')
     <h3 class="text-gray-700 text-3xl font-medium">Kode Barang</h3>
     
-    @if (count($errors) > 0)
-        <div class="text-red-500">
-            <strong>Whoops!</strong> There were some problems with your input.
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <div class="w-full">    
         <div class="mt-8 flex flex-wrap justify-end items-center">
             <!-- <div class="flex items-center mb-4 md:mb-0">
@@ -227,7 +216,7 @@
                                                     <div class="px-6 py-3 border-t">
                                                         <div class="flex justify-end">
                                                             <button type="button" class="text-sm text-red-500 px-4 py-2" @click={show=false}>Batal</button>
-                                                            <button type="submit" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="addCode()">Simpan</button>
+                                                            <button type="submit" class="bg-secondary text-sm text-white rounded px-4 py-2" @click={show=false} onclick="editCode()">Simpan</button>
                                                         </div>
                                                     </div>
                                                 </form>
