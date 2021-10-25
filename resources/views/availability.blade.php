@@ -138,7 +138,7 @@
                                         <div class="hidden">{{ $totalkeluar += $bk->jumlah }}</div>
                                     @endif
                                 @endforeach
-                                <div>{{ $totalmasuk - $totalkeluar }}</div>
+                                <div>{{ $totalmasuk - $totalkeluar }} pcs</div>
                             </td>
 
                             <td

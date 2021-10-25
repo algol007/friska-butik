@@ -97,14 +97,23 @@ class StokBarangController extends Controller
     public function cetak_preview()
     {
         $kodebarang = KodeBarang::all();
-        return view('preview.availability', compact('kodebarang'));
+        $barangmasuk = BarangMasuk::all();
+        $barangkeluar = BarangKeluar::all();
+        return view('preview.availability', compact('kodebarang', 'barangmasuk', 'barangkeluar'));
     }
 
     public function cetak_pdf()
     {
         $kodebarang = KodeBarang::all();
+        $barangmasuk = BarangMasuk::all();
+        $barangkeluar = BarangKeluar::all();
 
-        $pdf = PDF::loadview('preview.availability',['kodebarang'=>$kodebarang]);
+        $pdf = PDF::loadview('preview.availability', compact('kodebarang', 'barangmasuk', 'barangkeluar'));
         return $pdf->stream();
+
+        // $kodebarang = KodeBarang::all();
+
+        // $pdf = PDF::loadview('preview.availability',['kodebarang'=>$kodebarang]);
+        // return $pdf->stream();
     }
 }
