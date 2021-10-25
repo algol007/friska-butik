@@ -33,9 +33,11 @@ class StokBarangController extends Controller
     public function search(Request $request)
     {
 		$keyword = $request->search;
-        $kodebarang_list = KodeBarang::where('nama_barang', 'like', "%" . $keyword . "%")->paginate(10);
+        $barangmasuk = BarangMasuk::all();
+        $barangkeluar = BarangKeluar::all();
+        $kodebarang_list = KodeBarang::where('nama_barang', 'like', "%" . $keyword . "%")->orWhere('kode_barang', 'like', "%" . $keyword . "%")->paginate(10);
 
-        return view('availability', compact('kodebarang_list'));
+        return view('availability', compact('kodebarang_list', 'barangmasuk', 'barangkeluar'));
     }
 
     /**

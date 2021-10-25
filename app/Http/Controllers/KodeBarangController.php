@@ -32,7 +32,7 @@ class KodeBarangController extends Controller
     public function search(Request $request)
     {
 		$keyword = $request->search;
-        $kodebarang_list = KodeBarang::where('nama_barang', 'like', "%" . $keyword . "%")->paginate(10);
+        $kodebarang_list = KodeBarang::where('nama_barang', 'like', "%" . $keyword . "%")->orWhere('kode_barang', 'like', "%" . $keyword . "%")->paginate(10);
         $kategori_list = Category::all();
 
         return view('code', compact('kodebarang_list', 'kategori_list'))->with('no', 1);
